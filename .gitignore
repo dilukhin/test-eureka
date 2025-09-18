@@ -1,0 +1,25 @@
+tasks.sqlite
+# build outputs
+/build/
+/cmake-build-*
+*.user
+
+# Qt Creator / CLion
+/.idea/
+/.vscode/
+*.pro.user
+*.user.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Proto generated (kept in build)
+*.pb.cc
+*.pb.h

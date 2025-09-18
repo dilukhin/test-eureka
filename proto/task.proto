@@ -1,0 +1,40 @@
+syntax = "proto3";
+package task;
+
+// Версия протокола — строка версии для совместимости
+message Handshake {
+  string agent_id = 1;
+  string protocol_version = 2; // "1.0"
+}
+
+// Запрос на создание задачи
+message TaskRequest {
+  string task_id = 1;   // UUID
+  string task_type = 2; // "sum"
+  int32 param_n = 3;    // N
+}
+
+// Ответ на создание задачи
+message TaskResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+// Периодические статусы
+message TaskStatus {
+  string task_id = 1;
+  string status = 2;   // "new", "running", "completed", "error", "canceled"
+  int32 progress = 3;  // 0..100
+  int64 result = 4;    // сумма (для "completed"), иначе 0
+}
+
+// Запрос на отмену
+message CancelTask {
+  string task_id = 1;
+}
+
+// Универсальная обёртка для фрейминга и маршрутизации
+message Envelope {
+  string kind = 1; // "Handshake"|"TaskRequest"|"TaskResponse"|"TaskStatus"|"CancelTask"
+  bytes payload = 2;
+}
